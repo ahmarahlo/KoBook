@@ -25,7 +25,6 @@ class PustakawanPanelProvider extends PanelProvider
         return $panel
             ->id('pustakawan')
             ->path('pustakawan')
-            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])

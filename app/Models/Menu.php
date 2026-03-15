@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    //
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'stock',
+        'category',
+        'image',
+    ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
