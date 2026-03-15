@@ -25,7 +25,6 @@ class BaristaPanelProvider extends PanelProvider
         return $panel
             ->id('barista')
             ->path('barista')
-            ->login()
             ->colors([
                 'primary' => Color::Blue,
             ])
