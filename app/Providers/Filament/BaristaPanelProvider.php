@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Providers\Filament;
-
+use App\Models\User;
 use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
@@ -15,6 +14,7 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
@@ -25,8 +25,9 @@ class BaristaPanelProvider extends PanelProvider
         return $panel
             ->id('barista')
             ->path('barista')
+            ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
             ->discoverResources(in: app_path('Filament/Barista/Resources'), for: 'App\\Filament\\Barista\\Resources')
             ->discoverPages(in: app_path('Filament/Barista/Pages'), for: 'App\\Filament\\Barista\\Pages')
@@ -51,6 +52,7 @@ class BaristaPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                \App\Http\Middleware\CheckRole::class . ':2,1',
             ]);
     }
 }
